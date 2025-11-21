@@ -11,12 +11,10 @@ cmake_minimum_required(VERSION 3.22.1)
 # build script scope).
 project("xlog_sample")
 
-add_subdirectory(mars-xlog/mars/mars mars)
+add_subdirectory(mars mars)
 
-include_directories(mars-xlog/mars)
-include_directories(mars-xlog/mars/mars)
-include_directories(mars-xlog/mars/mars/comm)
-include_directories(mars-xlog/mars/mars/comm/xlogger)
+include_directories(mars/comm)
+include_directories(mars/comm/xlogger)
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.

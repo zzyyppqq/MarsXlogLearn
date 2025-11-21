@@ -8,9 +8,13 @@ class XLogSample {
      */
     external fun stringFromJNI(): String
 
+    external fun getPathFromJNI(name: String, logdir: String): String
+
     companion object {
         // Used to load the 'xlog' library on application startup.
         init {
+            System.loadLibrary("c++_shared")
+            System.loadLibrary("marsxlog")
             System.loadLibrary("xlog_sample")
         }
     }

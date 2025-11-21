@@ -6,6 +6,7 @@
 #include "xlogger.h"
 #include "android_xlog.h"
 
+#include "jni/util/scoped_jstring.h"
 
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_zyp_xlog_XLogSample_stringFromJNI(
@@ -43,7 +44,32 @@ Java_com_zyp_xlog_XLogSample_stringFromJNI(
 
     LOGI("test", "111111111111");
 
-
     std::string hello = "Hello from C++";
     return env->NewStringUTF(hello.c_str());
+}
+
+
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_zyp_xlog_XLogSample_getPathFromJNI(
+        JNIEnv* env,
+        jobject /* this */,
+        jstring name,
+        jstring logdir) {
+
+    //jstring logdir = (jstring)JNU_GetField(env, _log_config, "logdir", "Ljava/lang/String;").l;
+
+    // 将 JNI 参数转换为 C++ 数据类型
+    const char* str = env->GetStringUTFChars(name, NULL);
+    // str转std::string
+    std::string name_str = str;
+    // 释放资源
+    env->ReleaseStringUTFChars(name, str);
+
+
+    std::string logdir_str;
+    if (NULL != logdir) {
+        ScopedJstring logdir_jstr(env, logdir);
+        logdir_str = logdir_jstr.GetChar();
+    }
+    return env->NewStringUTF(logdir_str.c_str());
 }
