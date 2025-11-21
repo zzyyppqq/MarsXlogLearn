@@ -113,7 +113,7 @@ public class Xlog implements Log.LogImp {
 		logConfig.logdir = logDir;
 		logConfig.nameprefix = nameprefix;
 		logConfig.compressmode = ZLIB_MODE;
-		logConfig.pubkey = "";
+		logConfig.pubkey = ""; // 传入空字符串，关闭加密
 		logConfig.cachedir = cacheDir;
 		logConfig.cachedays = cacheDays;
 

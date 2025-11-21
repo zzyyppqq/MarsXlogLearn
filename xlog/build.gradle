@@ -7,6 +7,7 @@ android {
     namespace 'com.zyp.xlog'
     compileSdk 34
     ndkVersion '21.1.6352462'
+//    ndkVersion '26.1.10909125'
     defaultConfig {
         minSdk 21
 
@@ -21,6 +22,7 @@ android {
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a'
         }
+
     }
 
     buildTypes {

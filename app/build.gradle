@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.zyp.xlog'
+    namespace 'com.zyp.xlog.learn'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.zyp.xlog"
+        applicationId "com.zyp.xlog.learn"
         minSdk 21
         targetSdk 34
         versionCode 1
