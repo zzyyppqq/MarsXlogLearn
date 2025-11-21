@@ -16,15 +16,35 @@
         android:text="Hello World!" />
 
     <Button
+        android:id="@+id/btn_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="test" />
+
+
+    <Button
         android:id="@+id/btn_log"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="log" />
 
+
     <Button
-        android:id="@+id/btn_test"
+        android:id="@+id/btn_debug_log"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="test" />
+        android:text="debug_log" />
+
+    <Button
+        android:id="@+id/btn_trace_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="trace_log" />
+
+    <Button
+        android:id="@+id/btn_error_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="error_log" />
 
 </LinearLayout>

@@ -3,9 +3,12 @@ package com.zyp.xlog.learn
 import android.os.Environment
 import com.tencent.mars.xlog.Log
 import com.tencent.mars.xlog.Xlog
+import com.zyp.xlog.XLogSample
 
 
 object LogHelper {
+
+    val xlogSample = XLogSample()
 
     private var debugLog: Log.LogInstance? = null
     private var traceLog: Log.LogInstance? = null
@@ -21,8 +24,10 @@ object LogHelper {
      *
      * 使用 openLogInstance 创建新实例时，同样可以为其配置独立的参数（如不同的日志级别和文件路径），从而实现日志的分离。
      */
-    fun xlogInit() {
-        val logPath = Environment.getExternalStorageDirectory().path + "/MarsXlogLearn/xlog"
+    private fun xlogInit() {
+        // val logPath = Environment.getExternalStorageDirectory().path + "/MarsXlogLearn/xlog"
+        val logPath = (app.getExternalFilesDir(null)?.absolutePath?:"") + "/MarsXlogLearn/xlog"
+        android.util.Log.i("app_log", "LogHelper xlogInit logPath: $logPath")
         val xlog = Xlog()
         Log.setLogImp(xlog)
         Log.setConsoleLogOpen(true)
@@ -43,16 +48,22 @@ object LogHelper {
     }
 
     fun traceLog(msg: String) {
-        traceLog?.i("debug_log", msg)
+        traceLog?.i("trace_log", msg)
     }
 
     fun errorLog(msg: String) {
-        errorLog?.e("debug_log", msg)
+        errorLog?.e("error_log", msg)
+    }
+
+    fun errorLog(e: Throwable) {
+        errorLog?.e("error_log", android.util.Log.getStackTraceString(e))
     }
 
     fun close() {
-        Log.closeLogInstance("debug")
-        Log.closeLogInstance("trace")
-        Log.closeLogInstance("error")
+        try {
+            Log.appenderClose()
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        }
     }
 }

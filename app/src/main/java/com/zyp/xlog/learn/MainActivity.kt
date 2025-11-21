@@ -14,8 +14,6 @@ import com.zyp.xlog.XLogSample
 
 class MainActivity : AppCompatActivity() {
 
-    private val xlogSample = XLogSample()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,8 +25,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         val tv = findViewById<TextView>(R.id.sample_text)
-        tv.text = xlogSample.stringFromJNI()
 
+
+
+        findViewById<Button>(R.id.btn_test).setOnClickListener {
+            tv.text = LogHelper.xlogSample.stringFromJNI()
+        }
 
 
         findViewById<Button>(R.id.btn_log).setOnClickListener {
@@ -37,10 +39,28 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<Button>(R.id.btn_test).setOnClickListener {
-            xlogSample.stringFromJNI()
+        findViewById<Button>(R.id.btn_debug_log).setOnClickListener {
+            LogHelper.debugLog("I am debug log")
+        }
+
+        findViewById<Button>(R.id.btn_trace_log).setOnClickListener {
+            LogHelper.debugLog("I am trace log")
+        }
+
+        findViewById<Button>(R.id.btn_error_log).setOnClickListener {
+            try {
+                1 / 0
+            } catch (e: Throwable) {
+                LogHelper.errorLog(e)
+            }
+
         }
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LogHelper.close()
+    }
 
 }
